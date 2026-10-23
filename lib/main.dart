@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/screens/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'firebase_options.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'screens/login.dart';
+import 'screens/tasks_list.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,14 +17,33 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'To-do list',
-
-      home: const Login(),
+      title: 'Girly To-Do App 💖',
+      theme: ThemeData(
+        primarySwatch: Colors.pink,
+        scaffoldBackgroundColor: const Color(0xFFFFF0F5),
+        fontFamily: 'Poppins',
+      ),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              backgroundColor: Color(0xFFFFF0F5),
+              body: Center(
+                child: CircularProgressIndicator(color: Color(0xFFFF758F)),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            return const TasksListScreen();
+          }
+          return const LoginScreen();
+        },
+      ),
     );
   }
 }
