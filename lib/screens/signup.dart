@@ -1,86 +1,194 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_list/screens/login.dart';
-import 'package:to_do_list/screens/tasks_list.dart';
-import 'package:to_do_list/widgets/app_logo.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Signup extends StatefulWidget {
-  const new({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _signup() async {
+    if (emailController.text.trim().isEmpty ||
+        passwordController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please fill in all fields!")),
+      );
+      return;
+    }
+
+    setState(() => isLoading = true);
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Error: ${e.toString()}")));
+      }
+    } finally {
+      if (context.mounted) {
+        setState(() => isLoading = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(30),
-          child :Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 120),
-              AppLogo(),
-          SizedBox(height: 20,),
-          Text("Sign up to make a To-Do list", style: TextStyle(fontSize: 30, fontFamily:"Roboto", fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
-          SizedBox(height: 20,),
-
-          TextFormField(
-            keyboardType: TextInputType.name,
-            decoration:InputDecoration(
-              icon: Icon(Icons.person),
-              border: OutlineInputBorder(),
-              label: Text("Name"),
-            ),
-                  
-          ),
-          
-          SizedBox(height: 20,),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-
-              decoration:InputDecoration(
-              icon: Icon(Icons.email),
-              border: OutlineInputBorder(),
-              label: Text("Email"),
-            ),
-               
-                  
-          ),
-          SizedBox(height: 20,),
-                    TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-
-              decoration:InputDecoration(
-              icon: Icon(Icons.password),
-              border: OutlineInputBorder(),
-              label: Text("Password"),
-            ),
-               
-                  
-          ),
-                    SizedBox(height: 20,),
-                  
-          ElevatedButton(onPressed:() {
-             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TasksList()));
-          }, style: ElevatedButton.styleFrom(
-            backgroundColor:  Color.fromRGBO(33, 150, 243, 1),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12))
-          ),child: Text("Sign in", style: TextStyle(color: Colors.white))),
-          SizedBox(height: 20,),
-          Text("Don't have an account?"),
-          SizedBox(height: 5,),
-
-                  
-          InkWell(onTap: () {
-            Navigator.pop(context);
-            
-          },child: Text("Log in",style: TextStyle(color: Color.fromRGBO(33, 150, 243, 1)),),)
-                      ],)
+      backgroundColor: const Color(0xFFFFF0F5),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFFF758F),
+        elevation: 0,
+        title: const Text(
+          "Create Account ✨",
+          style: TextStyle(color: Colors.white),
         ),
-      )
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24.0),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.pink.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.person_add_rounded,
+                  size: 60,
+                  color: Color(0xFFFF758F),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Let's Get Started! ✨",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF6B4F4F),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Sign up to start your awesome journey",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                ),
+                const SizedBox(height: 30),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: Color(0xFFFF758F),
+                    ),
+                    filled: true,
+                    fillColor: const Color(0xFFFFF0F5),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: const BorderSide(
+                        color: Color(0xFFFF758F),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: Color(0xFFFF758F),
+                    ),
+                    filled: true,
+                    fillColor: const Color(0xFFFFF0F5),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: const BorderSide(
+                        color: Color(0xFFFF758F),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: isLoading ? null : _signup,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF758F),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      elevation: 3,
+                    ),
+                    child: isLoading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : const Text(
+                            "Sign Up ✨",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -41,48 +41,46 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD3T0eaQMjmworZbMCQC4HKaHN0eOtlQpM',
-    appId: '1:629837176873:web:757775ccbfc9351dd2fc38',
-    messagingSenderId: '629837176873',
-    projectId: 'to-do-with-flutter',
-    authDomain: 'to-do-with-flutter.firebaseapp.com',
-    storageBucket: 'to-do-with-flutter.firebasestorage.app',
-    measurementId: 'G-11F9NX9SKZ',
+    apiKey: 'AIzaSyC7n-_tWDDSRxfxPPFM_Ys_frkRbcvqKWs',
+    appId: '1:277686997980:web:58f68f49b1d86f8325b519',
+    messagingSenderId: '277686997980',
+    projectId: 'girly-todo-app',
+    authDomain: 'girly-todo-app.firebaseapp.com',
+    storageBucket: 'girly-todo-app.firebasestorage.app',
+    measurementId: 'G-WMYME2Z1C6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBO4ad2eczS1ccABFwOSR7iF-AnX9NKXt4',
-    appId: '1:629837176873:android:887b76a511896290d2fc38',
-    messagingSenderId: '629837176873',
-    projectId: 'to-do-with-flutter',
-    storageBucket: 'to-do-with-flutter.firebasestorage.app',
+    apiKey: 'AIzaSyBR7XVn0vFBmL8klrPZh8-ovsgpvLTq2Zw',
+    appId: '1:277686997980:android:ef874a9c1eea896525b519',
+    messagingSenderId: '277686997980',
+    projectId: 'girly-todo-app',
+    storageBucket: 'girly-todo-app.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCC3IO73ZGEwZ3mUtZ6C3WyeMq-1S472Lo',
-    appId: '1:629837176873:ios:6206ab50853050e4d2fc38',
-    messagingSenderId: '629837176873',
-    projectId: 'to-do-with-flutter',
-    storageBucket: 'to-do-with-flutter.firebasestorage.app',
+    apiKey: 'AIzaSyABGMhBawIIY2gRjbdx9r5ZQnBhZ_lU2k4',
+    appId: '1:277686997980:ios:43bcebcd15eb6ccc25b519',
+    messagingSenderId: '277686997980',
+    projectId: 'girly-todo-app',
+    storageBucket: 'girly-todo-app.firebasestorage.app',
     iosBundleId: 'com.example.toDoList',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCC3IO73ZGEwZ3mUtZ6C3WyeMq-1S472Lo',
-    appId: '1:629837176873:ios:6206ab50853050e4d2fc38',
-    messagingSenderId: '629837176873',
-    projectId: 'to-do-with-flutter',
-    storageBucket: 'to-do-with-flutter.firebasestorage.app',
+    apiKey: 'AIzaSyABGMhBawIIY2gRjbdx9r5ZQnBhZ_lU2k4',
+    appId: '1:277686997980:ios:43bcebcd15eb6ccc25b519',
+    messagingSenderId: '277686997980',
+    projectId: 'girly-todo-app',
+    storageBucket: 'girly-todo-app.firebasestorage.app',
     iosBundleId: 'com.example.toDoList',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyD3T0eaQMjmworZbMCQC4HKaHN0eOtlQpM',
-    appId: '1:629837176873:web:5f07708bc72b92fed2fc38',
-    messagingSenderId: '629837176873',
-    projectId: 'to-do-with-flutter',
-    authDomain: 'to-do-with-flutter.firebaseapp.com',
-    storageBucket: 'to-do-with-flutter.firebasestorage.app',
-    measurementId: 'G-RSW56P8YDL',
+    apiKey: 'AIzaSyC7n-_tWDDSRxfxPPFM_Ys_frkRbcvqKWs',
+    appId: '1:277686997980:web:268817fa3e8d9c9725b519',
+    messagingSenderId: '277686997980',
+    projectId: 'girly-todo-app',
+    authDomain: 'girly-todo-app.firebaseapp.com',
+    storageBucket: 'girly-todo-app.firebasestorage.app',
+    measurementId: 'G-Z7SRHR54SE',
   );
 }
